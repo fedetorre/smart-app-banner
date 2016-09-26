@@ -188,7 +188,7 @@ SmartBanner.prototype = {
 		if (this.type === 'windows') {
 			this.urlParams = '';
 		} else {
-			var up = /urlParams=([^\s,]+)/.exec(meta.getAttribute('content'));
+			var up = /url-params=([^\s,]+)/.exec(meta.getAttribute('content'));
 			if(up != null){
 				this.urlParams = up[1];
 			}
