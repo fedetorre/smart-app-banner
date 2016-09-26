@@ -14,22 +14,25 @@ var mixins = {
 	ios: {
 		appMeta: 'apple-itunes-app',
 		iconRels: ['apple-touch-icon-precomposed', 'apple-touch-icon'],
+		urlParams: '',
 		getStoreLink: function() {
-			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId;
+			return 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id' + this.appId + (this.urlParams ? '?' + this.urlParams : '');
 		}
 	},
 	android: {
 		appMeta: 'google-play-app',
 		iconRels: ['android-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
+		urlParams: '',
 		getStoreLink: function() {
-			return 'http://play.google.com/store/apps/details?id=' + this.appId;
+			return 'http://play.google.com/store/apps/details?id=' + this.appId + (this.urlParams ? '&' + this.urlParams : '');
 		}
 	},
 	windows: {
 		appMeta: 'msApplication-ID',
 		iconRels: ['windows-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
+		urlParams: '',
 		getStoreLink: function() {
-			return 'http://www.windowsphone.com/s?appid=' + this.appId;
+			return 'http://www.windowsphone.com/s?appid=' + this.appId + (this.urlParams ? '&' + this.urlParams : '');
 		}
 	}
 };
@@ -85,7 +88,7 @@ var SmartBanner = function(options) {
 	if (!this.parseAppId()) {
 		return;
 	}
-
+	this.parseUrlParams(),
 	this.create();
 	this.show();
 };
@@ -175,6 +178,23 @@ SmartBanner.prototype = {
 		}
 
 		return this.appId;
+	},
+	parseUrlParams: function() {
+		var meta = q('meta[name="' + this.appMeta + '"]');
+		if (!meta) {
+			return;
+		}
+
+		if (this.type === 'windows') {
+			this.urlParams = '';
+		} else {
+			var up = /urlParams=([^\s,]+)/.exec(meta.getAttribute('content'));
+			if(up != null){
+				this.urlParams = up[1];
+			}
+		}
+
+		return this.urlParams;
 	}
 };
 
