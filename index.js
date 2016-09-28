@@ -24,7 +24,7 @@ var mixins = {
 		iconRels: ['android-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		urlParams: '',
 		getStoreLink: function() {
-			return 'http://play.google.com/store/apps/details?id=' + this.appId + (this.urlParams ? '&' + this.urlParams : '');
+			return 'https://play.google.com/store/apps/details?id=' + this.appId + (this.urlParams ? '&' + this.urlParams : '');
 		}
 	},
 	windows: {
@@ -32,7 +32,7 @@ var mixins = {
 		iconRels: ['windows-touch-icon', 'apple-touch-icon-precomposed', 'apple-touch-icon'],
 		urlParams: '',
 		getStoreLink: function() {
-			return 'http://www.windowsphone.com/s?appid=' + this.appId + (this.urlParams ? '&' + this.urlParams : '');
+			return 'https://www.windowsphone.com/s?appid=' + this.appId + (this.urlParams ? '&' + this.urlParams : '');
 		}
 	}
 };
