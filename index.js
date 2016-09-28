@@ -184,14 +184,16 @@ SmartBanner.prototype = {
 		if (!meta) {
 			return;
 		}
-
+		var up = '';
 		if (this.type === 'windows') {
 			this.urlParams = '';
+		} else if (this.type === 'ios') {
+			up = /affiliate-data=([^\s,]+)/.exec(meta.getAttribute('content'));
 		} else {
-			var up = /url-params=([^\s,]+)/.exec(meta.getAttribute('content'));
-			if(up != null){
-				this.urlParams = up[1];
-			}
+			up = /url-params=([^\s,]+)/.exec(meta.getAttribute('content'));
+		}
+		if(up != null){
+			this.urlParams = up[1];
 		}
 
 		return this.urlParams;
